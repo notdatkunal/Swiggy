@@ -1,8 +1,7 @@
 package Swiggy;
 
 public class App {
-	Account a;
-	Hotel b;
+	
 /*
  * 
  * login 
