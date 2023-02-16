@@ -1,4 +1,4 @@
-package Swiggy;
+package com.Swiggy;
 
 public class NonVeg extends Hotel{
 
