@@ -6,6 +6,7 @@ public class Swiggy {
 	Hotel b;
 	Hotel[] order = new Hotel[0];
 	double total = 0;
+	
 	public void OrderFood() {
 		if(a==null) {
 			System.out.println("please login");
@@ -23,6 +24,48 @@ public class Swiggy {
 		System.out.println("your order is on the way....");
 		
 
+// add one feature that can add items from the list
+	}
+	public void addFood() {
+		
+		if(a==null) {
+			System.out.println("please login");
+			return;
+		}
+		if(b==null) {
+			System.out.println("please add hotel");
+			return;
+		}
+		if(order.length==0) {
+			System.err.println("you have empty basket");
+		}
+		else{
+			System.out.println("your basket contains");
+			for(Hotel a:order) {
+				System.out.println(a.food+"\t"+a.price);
+			}
+		}
+		System.out.println("choose your food you want to add");
+		for(int i = 0;i<b.list.length;i++) {
+			System.out.println((i+1)+"  "+b.list[i].food+" "+b.list[i].price);
+		}
+		int itemNo = sc.nextInt();
+//		switch(itemNo) {}
+			order = addItem(order,b.list[itemNo-1]);
+			total +=b.list[itemNo-1].price;
+		
+	}
+	
+	public Hotel[] addItem(Hotel[] order,Hotel item) {
+		
+		
+		Hotel[] order1 = new Hotel[order.length +1];
+		
+		order1[order.length]=item;
+		if(order.length!=0) {for (int i = 0; i < order1.length-1; i++) {
+			order1[i]=order[i];
+		}}
+		return order1;
 
 	}
 	public void login() {
@@ -39,7 +82,7 @@ public class Swiggy {
 		
 		a = new Account(username,password,adress);
 		System.out.println("account has been successfully created");
-		
+		// completed
 	}
 	public void logout() {
 		
@@ -65,14 +108,10 @@ public class Swiggy {
 		System.out.println("1. Veg			2. Non Veg");
 		int i = sc.nextInt();
 		switch(i) {
-		case 1-> {b = new Veg();
-					System.out.println("veg hotel added");
-						}
-		case 2-> {b = new NonVeg();
-					System.out.println("non veg hotel added");
-					}
-		default -> {	System.out.println("enter proper option");
-						return;}
+		case 1->	b = new Veg("hi");
+		case 2 ->	b = new NonVeg("hi"); 
+		default -> System.out.println("enter proper option");
+						
 					
 		}
 		

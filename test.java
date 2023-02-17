@@ -9,6 +9,12 @@ public class test {
 //   case "Orange" -> System.out.println("Round fruit");
 //   case "Grapes" -> System.out.println("Small fruit");
 //   default -> System.out.println("please enter a valid fruit");
+	
+	
+	//int[] ARRAY = {1,2,3,4};
+//	for(int a:array) {
+//		System.out.println(a);
+//	}
 //}
 	public static void main(String[] args) {
 		double d = 0.00;
