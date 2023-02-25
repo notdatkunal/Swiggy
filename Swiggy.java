@@ -9,15 +9,15 @@ public class Swiggy {
 	
 	public void OrderFood() {
 		if(a==null) {
-			System.out.println("please login");
+			System.err.println("please login");
 			return;
 		}
 		if(b==null) {
-			System.out.println("please add hotel");
+			System.err.println("please add hotel");
 			return;
 		}
 		if(total==0) {
-			System.out.println("please order something");
+			System.err.println("please order something");
 			return;
 		}
 		
@@ -29,11 +29,11 @@ public class Swiggy {
 	public void addFood() {
 		
 		if(a==null) {
-			System.out.println("please login");
+			System.err.println("please login");
 			return;
 		}
 		if(b==null) {
-			System.out.println("please add hotel");
+			System.err.println("please add hotel");
 			return;
 		}
 		if(order.length==0) {
@@ -42,7 +42,8 @@ public class Swiggy {
 		else{
 			System.out.println("your basket contains");
 			for(Hotel a:order) {
-				System.out.println(a.food+"\t"+a.price);
+				System.out.println(a.food+"\t"+a.price+"\t"+a.quantity);
+				System.err.println("--------------");
 			}
 		}
 		System.out.println("choose your food you want to add");
@@ -50,12 +51,74 @@ public class Swiggy {
 			System.out.println((i+1)+"  "+b.list[i].food+" "+b.list[i].price);
 		}
 		int itemNo = sc.nextInt();
+		boolean cond = itemNo>0&&itemNo<=b.list.length;
+		if(!cond) {
+			System.out.println("wrong input");
+			return;
+		}
+		if(check(itemNo)) {// make this method check the item from list if they already exit and 
+			// return true if it's already there
+			System.out.println("item is already added");
+			System.out.println("do you want to add it again");
+			System.out.println("1. yes | 2. no ");
+			int c = sc.nextInt();
+			switch (c) {
+			case 1 -> addAgain(itemNo);
+			case 2 -> System.out.println("okay"); 
+			default -> System.out.println("choose proper option"); 
+			
+			}
+			return;
+		}
+		System.out.println("add quantity");
+		int q = sc.nextInt();
+		if(q==0) {
+			System.err.println("quantity cannot be zero");
+			return;
+		}
+//		b.list[itemNo-1].quantity=q;
 //		switch(itemNo) {}
 			order = addItem(order,b.list[itemNo-1]);
-			total +=b.list[itemNo-1].price;
-		
+//			total +=q*b.list[itemNo-1].price;
+			order[order.length-1].quantity=q;
+			System.out.println("-------------------");
+			System.out.println("Your item is added successfully");
+			
+			System.out.println("-------------------");
 	}
 	
+	private void addAgain(int num) {
+		// TODO Auto-generated method stub
+		System.out.println("let's add it again"); 
+		int i = 0;
+		String s = b.list[num-1].food;
+//		do {i++;}while(order[i].food!=b.list[num-1].food);
+		for(Hotel j:order) {
+			if(j.food==s) {
+				
+				break;
+			}
+			i++;
+		}
+		System.out.println("add quantity");
+		int q = sc.nextInt();
+		if(q==0) {
+			System.err.println("quantity cannot be zero");
+			return;
+		}
+		order[i].quantity=q;
+		
+		
+	}
+	private boolean check(int No) {
+		for(Hotel i:order) {
+			if(b.list[No-1].food==i.food) {
+				return true;
+			}
+		}
+		// TODO Auto-generated method stub
+		return false;
+	}
 	public Hotel[] addItem(Hotel[] order,Hotel item) {
 		
 		
@@ -79,8 +142,11 @@ public class Swiggy {
 		int password= sc.nextInt();
 		System.out.println("enter your adress");
 		String adress = sc.nextLine();
+		adress = sc.nextLine();
+		// this is one way to resolve the scanner bug that was not allocating the address value
 		
 		a = new Account(username,password,adress);
+//		a.adress = ;
 		System.out.println("account has been successfully created");
 		// completed
 	}
@@ -121,15 +187,15 @@ public class Swiggy {
 
 	public void Cancelfood() {
 		if(a==null) {
-			System.out.println("please login");
+			System.err.println("please login");
 			return;
 		}
 		if(b==null) {
-			System.out.println("please add hotel");
+			System.err.println("please add hotel");
 			return;
 		}
 		if(total==0) {
-			System.out.println("you have to order first");
+			System.err.println("you have to order first");
 			return;
 		}
 		total=0;
@@ -139,32 +205,24 @@ public class Swiggy {
 	}
 	public void displayBill() {
 		if(order.length==0) {
+			System.err.println("firs order something");
 			return;
 		}
 		for(Hotel i:order) {
-			total+=i.price;
-		}
-
-
-		
+			System.out.println("-----------------------------");
+			double k =i.quantity*i.price; 
+			total+=k;
+			System.out.println(i.food+"  "+k);
+		}		
+		System.out.println("-----------------------------");
 		System.out.println("your total is "+total);
 		// done
-
 	}
 	public void exit() {
-		System.out.println("Thank you for using Swiggy");
+		System.out.println("Thank you for using Swiggy :)");
 		System.exit(9);
 		// done
 
 	}
-	/*
-	 * 
-	 * login 
-	 * logout
-	 * add hotel 
-	 * order food
-	 * cancel food
-	 * display bill
-	 * exit
-	 * */
+	
 }

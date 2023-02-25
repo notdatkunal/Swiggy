@@ -15,7 +15,6 @@ public class Veg extends Hotel{
 		list[1].price = 10;
 		list[2].food="paneer butter masala";
 		list[2].price = 150;
-		
 		super.printmenu();
 	}
 }
